@@ -32,11 +32,12 @@ public class DemoApplicationTests {
 
     @Test
     public void saveTest() {
-        City city = new City("1","城市","城市哎哎");
+        City city = new City("1","城市2","城市哎哎2");
         List<Object> list = new ArrayList<>();
         list.add(city);
         list.add(city);
         list.add(city);
+        redisUtil.del("cityList");
         boolean cityList = redisUtil.lSet("cityList", list);
         System.out.println(cityList);
         List<Object> cityList1 = redisUtil.lGet("cityList", 0, -1);
