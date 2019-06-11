@@ -5,6 +5,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 import java.io.InputStream;
+import java.io.Serializable;
 
 /**
  * @author madio
@@ -13,6 +14,7 @@ public class CacheManagerFactory {
     private CacheManager manager;
     private static CacheManagerFactory factory = new CacheManagerFactory();
     private final static String EHCACHEFILE = "/ehcache.xml";
+    private String cacheName = "user";
 
     private CacheManagerFactory() {
     }
@@ -41,24 +43,28 @@ public class CacheManagerFactory {
         getCacheManager().addCache(cache);
     }
 
-    public Element getElement(String cacheName, String key) {
+    public Element getElement(String key) {
         if (getCache(cacheName) == null) {
             setCache(cacheName);
         }
         return getCache(cacheName).get(key);
     }
 
-    public void setElement(String cache, Element element) {
-        if (getCache(cache) == null) {
-            setCache(cache);
+    public void setElement(Element element) {
+        if (getCache(cacheName) == null) {
+            setCache(cacheName);
         }
-        getCache(cache).put(element);
+        getCache(cacheName).put(element);
     }
 
-    public Boolean continaElementKey(String cacheName, String key) {
+    public Boolean continaElementKey(String key) {
         if (getCache(cacheName) == null) {
             setCache(cacheName);
         }
         return getCache(cacheName).isKeyInCache(key);
+    }
+
+    public void remove(Serializable key) {
+        manager.getCache(cacheName).remove(key);
     }
 }

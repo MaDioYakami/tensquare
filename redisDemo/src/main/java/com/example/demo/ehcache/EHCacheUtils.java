@@ -17,6 +17,7 @@ public class EHCacheUtils {
 
     static CacheManager manager = null;
     static String configfile = "ehcache.xml";
+    private static String cachename = "user";
 
     //EHCache初始化
     static {
@@ -30,22 +31,20 @@ public class EHCacheUtils {
     /**
      * 将数据存入Cache
      *
-     * @param cachename Cache名称
-     * @param key       类似redis的Key
-     * @param value     类似redis的value，value可以是任何对象、数据类型，比如person,map,list等
+     * @param key   类似redis的Key
+     * @param value 类似redis的value，value可以是任何对象、数据类型，比如person,map,list等
      */
-    public static void setCache(String cachename, Serializable key, Serializable value) {
+    public static void setCache(Serializable key, Serializable value) {
         manager.getCache(cachename).put(new Element(key, value));
     }
 
     /**
      * 获取缓存cachename中key对应的value
      *
-     * @param cachename
      * @param key
      * @return
      */
-    public static Serializable getCache(String cachename, Serializable key) {
+    public static Serializable getCache(Serializable key) {
         try {
             Element e = manager.getCache(cachename).get(key);
             if (e == null) {
@@ -62,10 +61,8 @@ public class EHCacheUtils {
 
     /**
      * 清除缓存名称为cachename的缓存
-     *
-     * @param cachename
      */
-    public static void clearCache(String cachename) {
+    public static void clearCache() {
         try {
             manager.getCache(cachename).removeAll();
         } catch (IllegalStateException e) {
@@ -76,10 +73,9 @@ public class EHCacheUtils {
     /**
      * 移除缓存cachename中key对应的value
      *
-     * @param cachename
      * @param key
      */
-    public static void remove(String cachename, Serializable key) {
+    public static void remove(Serializable key) {
         manager.getCache(cachename).remove(key);
     }
 }
