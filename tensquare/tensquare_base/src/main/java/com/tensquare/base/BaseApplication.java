@@ -13,7 +13,7 @@ public class BaseApplication {
     }
 
     @Bean
-    public IdWorker idWorker(){
+    public IdWorker idWorker() {
         return new IdWorker(1, 1);
     }
 

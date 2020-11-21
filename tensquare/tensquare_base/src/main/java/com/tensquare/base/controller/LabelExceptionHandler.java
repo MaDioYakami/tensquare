@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class LabelExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
-    public Result error(Exception e){
+    public Result error(Exception e) {
         e.printStackTrace();
-        return new Result(false,StatusCode.ERROR,  e.getMessage());
+        return new Result(false, StatusCode.ERROR, e.getMessage());
     }
 }

@@ -9,11 +9,11 @@ import java.util.List;
 
 /**
  * 数据访问接口
- * @author Administrator
  *
+ * @author Administrator
  */
-public interface RecruitDao extends JpaRepository<Recruit,String>,JpaSpecificationExecutor<Recruit>{
-	public List<Recruit> findTop6ByStateOrderByCreatetimeDesc(String state);
+public interface RecruitDao extends JpaRepository<Recruit, String>, JpaSpecificationExecutor<Recruit> {
+    public List<Recruit> findTop6ByStateOrderByCreatetimeDesc(String state);
 
-	public List<Recruit> findTop6ByStateNotOrderByCreatetimeDesc(String state);
+    public List<Recruit> findTop6ByStateNotOrderByCreatetimeDesc(String state);
 }

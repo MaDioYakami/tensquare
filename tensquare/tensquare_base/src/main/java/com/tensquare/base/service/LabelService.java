@@ -28,7 +28,7 @@ public class LabelService {
     private IdWorker idWorker;
 
     public void save(Label label) {
-        label.setId(idWorker.nextId()+"");
+        label.setId(idWorker.nextId() + "");
         labelDao.save(label);
     }
 
@@ -48,16 +48,16 @@ public class LabelService {
         labelDao.deleteById(labelId);
     }
 
-    public List<Label> findSearch(Label label){
-        return labelDao.findAll(new Specification<Label>(){
+    public List<Label> findSearch(Label label) {
+        return labelDao.findAll(new Specification<Label>() {
             @Override
             public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> list = new ArrayList<>();
-                if(label.getLabelname()!=null && !"".equals(label.getLabelname())){
+                if (label.getLabelname() != null && !"".equals(label.getLabelname())) {
                     Predicate predicate = cb.like(root.get("labelname").as(String.class), "%" + label.getLabelname() + "%");
                     list.add(predicate);
                 }
-                if(label.getState()!=null && !"".equals(label.getState())){
+                if (label.getState() != null && !"".equals(label.getState())) {
                     Predicate predicate = cb.equal(root.get("state").as(String.class), label.getState());
                     list.add(predicate);
                 }
@@ -70,18 +70,18 @@ public class LabelService {
     }
 
 
-    public Page<Label> pageQuery(Label label, int page, int size){
+    public Page<Label> pageQuery(Label label, int page, int size) {
         //封装了一个分页对象，在springdatajpa中想要实现分页，直接传一个分页对象即可
-        Pageable pageable = PageRequest.of(page-1, size);
-        return labelDao.findAll(new Specification<Label>(){
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return labelDao.findAll(new Specification<Label>() {
             @Override
             public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> list = new ArrayList<>();
-                if(label.getLabelname()!=null && !"".equals(label.getLabelname())){
+                if (label.getLabelname() != null && !"".equals(label.getLabelname())) {
                     Predicate predicate = cb.like(root.get("labelname").as(String.class), "%" + label.getLabelname() + "%");
                     list.add(predicate);
                 }
-                if(label.getState()!=null && !"".equals(label.getState())){
+                if (label.getState() != null && !"".equals(label.getState())) {
                     Predicate predicate = cb.equal(root.get("state").as(String.class), label.getState());
                     list.add(predicate);
                 }
